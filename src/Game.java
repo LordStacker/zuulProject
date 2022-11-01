@@ -100,6 +100,23 @@ public class Game
         System.out.println();
     }
 
+    public void getExits(){
+        System.out.print("Exits: ");
+        if(currentRoom.northExit != null) {
+            System.out.print("north ");
+        }
+        if(currentRoom.eastExit != null) {
+            System.out.print("east ");
+        }
+        if(currentRoom.southExit != null) {
+            System.out.print("south ");
+        }
+        if(currentRoom.westExit != null) {
+            System.out.print("west ");
+        }
+        System.out.println();
+    }
+
     /**
      * Given a command, process (that is: execute) the command.
      * @param command The command to be processed.
@@ -124,6 +141,11 @@ public class Game
         else if (commandWord.equals("look")){
             look();
         }
+        else if (commandWord.equals("eat")){
+            eat();
+
+
+        }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -142,14 +164,21 @@ public class Game
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
+        System.out.println("around the secret maze.");
         System.out.println();
         System.out.println("Your command words are:");
         System.out.println("   go quit look help");
     }
 
-    private void look(){
+    private void look() {
         System.out.println(currentRoom.getLongDescription());
+        getExits();
+    }
+
+    private void eat() {
+        System.out.println("You have eaten so you are not hungry anymore");
+        System.out.println("Now You are " + currentRoom.getDescription());
+        getExits();
     }
 
     /** 

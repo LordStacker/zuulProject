@@ -59,7 +59,8 @@ public class Game
      *  Main play routine.  Loops until end of play.
      */
     public void play() 
-    {            
+    {
+        //System.out.println("Enter Play to start the game.");
         printWelcome();
 
         // Enter the main command loop.  Here we repeatedly read commands and
@@ -84,34 +85,21 @@ public class Game
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
-        }
-        System.out.println();
+        getExits();
     }
 
     public void getExits(){
         System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
+        if(currentRoom.getExit("north") != null) {
             System.out.print("north ");
         }
-        if(currentRoom.eastExit != null) {
+        if(currentRoom.getExit("east") != null) {
             System.out.print("east ");
         }
-        if(currentRoom.southExit != null) {
+        if(currentRoom.getExit("south") != null) {
             System.out.print("south ");
         }
-        if(currentRoom.westExit != null) {
+        if(currentRoom.getExit("west") != null) {
             System.out.print("west ");
         }
         System.out.println();
@@ -138,6 +126,9 @@ public class Game
         else if (commandWord.equals("go")) {
             goRoom(command);
         }
+        /*else if (commandWord.equals("Play")){
+            printWelcome();
+        }*/
         else if (commandWord.equals("look")){
             look();
         }
@@ -196,18 +187,18 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = null;
+        Room nextRoom = currentRoom.getExit(direction);
         if(direction.equals("north")) {
-            nextRoom = currentRoom.northExit;
+            nextRoom = currentRoom.getExit("north");
         }
         if(direction.equals("east")) {
-            nextRoom = currentRoom.eastExit;
+            nextRoom = currentRoom.getExit("east");
         }
         if(direction.equals("south")) {
-            nextRoom = currentRoom.southExit;
+            nextRoom = currentRoom.getExit("south");
         }
         if(direction.equals("west")) {
-            nextRoom = currentRoom.westExit;
+            nextRoom = currentRoom.getExit("west");
         }
 
         if (nextRoom == null) {
@@ -217,16 +208,16 @@ public class Game
             currentRoom = nextRoom;
             System.out.println("You are " + currentRoom.getDescription());
             System.out.print("Exits: ");
-            if(currentRoom.northExit != null) {
+            if(currentRoom.getExit("north") != null) {
                 System.out.print("north ");
             }
-            if(currentRoom.eastExit != null) {
+            if(currentRoom.getExit("east") != null) {
                 System.out.print("east ");
             }
-            if(currentRoom.southExit != null) {
+            if(currentRoom.getExit("south") != null) {
                 System.out.print("south ");
             }
-            if(currentRoom.westExit != null) {
+            if(currentRoom.getExit("west") != null) {
                 System.out.print("west ");
             }
             System.out.println();
